@@ -1,0 +1,45 @@
+app-list, main-body {
+  width: 100%;
+  display: block;
+}
+.post-list {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+
+  &__empty {
+    padding: 0 16px;
+    margin: 20px 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 60px 0;
+  }
+
+  @media (min-width: 768px) {
+
+    &__list {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.post-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
