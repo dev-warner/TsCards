@@ -1,0 +1,62 @@
+@import "~@angular/material/theming";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic&amp;subset=latin-ext");
+
+@import "~@angular/material/theming";
+
+$general-typography: mat-typography-config(
+  $font-family: '"Open Sans", "Helvetica Neue", sans-serif',
+  $body-2: mat-typography-level(14px, 24px, 600)
+);
+
+$secondary-typography: mat-typography-config(
+  $font-family: "Roboto, sans-serif"
+);
+
+@include mat-core($general-typography);
+
+$my-app-primary: mat-palette($mat-indigo);
+$my-app-accent: mat-palette($mat-amber, A200, A100, A400);
+$my-app-warn: mat-palette($mat-red);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);
+
+
+$my-app-primary: mat-palette($mat-blue-grey);
+$my-app-accent: mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn: mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+.dark-theme {
+  $grey-alternate-primary: mat-palette($mat-blue-grey, 1000);
+  $grey-alternate-accent: mat-palette($mat-yellow, 400);
+
+  $grey-alternate-theme: mat-dark-theme(
+    $grey-alternate-primary,
+    $grey-alternate-accent
+  );
+
+  color: rgba(
+    150,
+    150,
+    150,
+    0.8
+  );
+
+  @include mat-core-theme(
+    $grey-alternate-theme
+  );
+
+  @include mat-toolbar-typography($secondary-typography);
+  color: $light-primary-text;
+  $dark-primary: mat-palette($mat-yellow);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+  @include angular-material-theme($dark-theme);
+}

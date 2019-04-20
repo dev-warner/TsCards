@@ -1,0 +1,76 @@
+<h1 routerLink="/" (click)="postService.clear()">
+  {{ title }}
+</h1>
+
+<nav class="sidenav__navigation">
+  <mat-accordion class="sidenav__accordian">
+    <mat-expansion-panel *ngFor="let link of links">
+      <mat-expansion-panel-header>
+        <mat-panel-title tabindex="0">
+          {{ link.label }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ul class="sidenav__parent-links">
+        <li
+          tabindex="1"
+          class="sidenav__child"
+          *ngFor="let child of link.links"
+          (click)="
+            child.count ? toggleAndFilter(child) : null
+          "
+        >
+          <a
+            *ngIf="!isResources(link.label)"
+            [ngClass]="{
+              'active': postService.isCurrent(child.label),
+              'disabled': !count
+            }"
+            >{{ child.label }}</a
+          >
+          <a
+            href="{{ child.link }}"
+            [ngClass]="{
+              'active': postService.isCurrent(child.label),
+              'disabled': !count
+            }"
+            *ngIf="isResources(link.label)"
+          >
+            @{{ child.author }} -
+            {{ child.label }}
+          </a>
+
+          <small
+            *ngIf="!isResources(link.label) && child.count"
+            aria-label="count"
+            >({{ child.count }})</small
+          >
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+</nav>
+
+<section class="sidenav__options">
+  <mat-slide-toggle class="example-margin" [color] [disabled]="true">
+    Test your Skills! - <span class="accent">Coming soon</span>
+  </mat-slide-toggle>
+  <br />
+  <mat-slide-toggle
+    [checked]="isDarkTheme | async"
+    (change)="toggleDarkTheme($event.checked)"
+    class="example-margin"
+    [color]
+  >
+    Dark mode
+  </mat-slide-toggle>
+</section>
+
+<section class="sidenav__social">
+  <span *ngFor="let social of socials">
+    <a href="{{ social.link }}" class="{{ social.label }}">{{
+      social.label
+    }}</a>
+    .
+  </span>
+</section>

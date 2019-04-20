@@ -1,0 +1,31 @@
+<section
+  class="post-list"
+  [ngClass]="{ 'flip': flip }"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="drop($event)"
+>
+  <!-- <mat-icon class="flip-cards" aria-label="flip the cards" (click)="toggleFLip(flip)"
+    >flip_to_front</mat-icon
+  > -->
+
+  <section class="post-list__list">
+    <app-post
+      *ngFor="let item of postService.getPosts()"
+      cdkDrag
+      [post]="item"
+    >
+    </app-post>
+  </section>
+
+
+  <section
+    class="post-list__empty"
+    *ngIf="!postService.getPosts().length">
+    <h2>Please think of contributing</h2>
+
+    <code><a href="https://github.com/dev-warner/TS-Cards">https://github.com/dev-warner/TS-Cards</a></code>
+
+  </section>
+
+</section>
