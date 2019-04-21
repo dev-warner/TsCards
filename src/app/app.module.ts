@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMdModule } from 'ngx-md';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { MatSidenavModule } from '@angular/material';
@@ -17,7 +18,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
@@ -27,10 +27,12 @@ import { MarkdownPostComponent } from './markdown-post/markdown-post.component';
 
 import { ThemeService } from './core/services/theme-service/theme.service';
 import { PostsService } from './core/services/post-service/posts.service';
+import { FilterService } from './core/services/filter-service/filter.service';
 
 import { environment } from '../environments/environment';
-import { MarkdownModule } from 'ngx-markdown';
 
+import 'prismjs/components/prism-javascript';
+import { StorageService } from './core/storage-service/storage.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MarkdownPostComponent,
   ],
   imports: [
-    MarkdownModule.forChild(),
+    NgxMdModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -71,13 +73,14 @@ import { MarkdownModule } from 'ngx-markdown';
     MatGridListModule,
     MatExpansionModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   entryComponents: [
   ],
   providers: [
     ThemeService,
-    PostsService
+    PostsService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,9 +7,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./markdown-post.component.scss']
 })
 export class MarkdownPostComponent {
+
   path: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+  }
 
   createPath() {
     const name = this.getUriParam('name');

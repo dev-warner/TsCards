@@ -1,9 +1,11 @@
 import { Injectable, Output } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { Post } from 'src/app/post/post.model';
 
 import { posts } from '../../../../assets/meta.json';
 import { EventEmitter } from 'events';
+import { FilterService } from '../filter-service/filter.service.js';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,10 @@ export class PostsService {
   posts: Post[];
   currentFilter: null | string;
 
-  constructor() {
+  constructor(
+    private location: Location,
+    public filterService: FilterService
+  ) {
     this.posts = posts;
 
     this.filterLabel.on('filter', (_, data) => {
@@ -35,6 +40,33 @@ export class PostsService {
     return this.posts;
   }
 
+  getCurrentPost() {
+    const pathLocation = this.location.path();
+    const current = pathLocation.substring(7, pathLocation.length);
+
+    const matchedPath = (target) => {
+      return target.path === current;
+    };
+
+    const path = this.posts.find(matchedPath);
+
+    if (path) {
+      return path;
+    }
+  }
+
+  getNextPost(post = this.getCurrentPost()) {
+    const index = this.posts.indexOf(post) + 1;
+
+    if (!post) {
+      return;
+    }
+
+    return index > this.posts.length ?
+      this.posts[0] :
+      this.posts[index];
+  }
+
   isCurrent(filter: string) {
     if (!this.currentFilter) {
       return false;
@@ -47,6 +79,7 @@ export class PostsService {
 
   setCurrentFilter(filter: string) {
     this.currentFilter = filter;
+    this.filterService.set(filter);
   }
 
   clear() {
