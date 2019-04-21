@@ -1,11 +1,10 @@
 app-list, main-body {
-  width: 100%;
   display: block;
 }
 .post-list {
-  width: 100%;
   padding: 16px;
   display: flex;
+  flex-direction: column;
 
   &__empty {
     padding: 0 16px;
@@ -17,9 +16,17 @@ app-list, main-body {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 60px 0;
+    width: 100%;
+  }
+
+  @media (min-width: 500px) {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   @media (min-width: 768px) {
+    padding: 16px 0;
+    width: auto;
 
     &__list {
       justify-content: flex-start;

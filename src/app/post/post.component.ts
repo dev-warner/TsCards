@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
-
 import { Post } from './post.model';
 
 

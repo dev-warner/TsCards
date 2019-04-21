@@ -1,7 +1,7 @@
 <mat-card class="post">
   <div class="flip-card-inner">
     <div class="flip-card-front">
-      <mat-card-header>
+      <mat-card-header *ngIf="post.label">
         <mat-card-title cdkDragHandle class="post__title">{{
           post.label
         }}</mat-card-title>
@@ -10,6 +10,7 @@
         </mat-card-subtitle>
         <a
           class="post__share"
+          *ngIf="post.type"
           target="_blank"
           href="http://twitter.com/share?text={{craftTweet()}}&url=http://www.tscards.sh">
           <mat-icon aria-label="Share on twitter">share</mat-icon>
@@ -35,7 +36,7 @@
         <button
           *ngIf="post.path"
           class="post__more"
-          routerLink="/detail/{{ post.path }}"
+          routerLink="/detail{{ post.path }}"
           mat-flat-button
           color="accent"
         >

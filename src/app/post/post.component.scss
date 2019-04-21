@@ -1,5 +1,10 @@
+app-post {
+  width: 100%;
+  max-width: 285px;
+}
 .post {
-  min-width: 285px;
+  min-width: 100%;
+  max-width: 285px;
   height: 500px;
   border-radius: 25px;
   overflow: hidden;
@@ -17,22 +22,6 @@
 
   &__actions {
     padding: 0 0 10px 10px !important;
-  }
-
-  @media (min-width: 500px) {
-    margin: 20px;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 250px;
-    margin: 20px;
-
-    img {
-      width: 317px;
-      display: block;
-      background-color: #ccc;
-      height: 228px;
-    }
   }
 
   .flip-card-inner {
@@ -88,6 +77,27 @@
         height: 500px !important;
         border-radius: 25px;
       }
+    }
+  }
+}
+@media (min-width: 630px) {
+  .post {
+    min-width: 285px;
+    margin: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .post {
+    max-width: 285px;
+    min-width: 285px;
+    margin: 20px;
+
+    img {
+      width: 317px;
+      display: block;
+      background-color: #ccc;
+      height: 228px;
     }
   }
 }

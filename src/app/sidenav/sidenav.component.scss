@@ -1,7 +1,7 @@
 @import "../core/theme.scss";
 
 app-sidenav {
-  height: 100%;
+  min-height: 100vh;
 }
 
 .active {
@@ -44,6 +44,9 @@ app-sidenav {
     }
   }
 
+  mat-drawer {
+    box-shadow: none;
+  }
   &__navigation {
     display: flex;
     flex: 1;

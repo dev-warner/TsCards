@@ -1,26 +1,56 @@
-@import "normalize.css";
-
 html,
-body,
-mat-drawer-container {
+body {
   height: 100%;
-  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
 }
+
+mat-drawer, mat-drawer-container {
+  height: 100%;
+}
+
+app-root {
+  background-color: #fafafa;
+  display: block;
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100%;
 
-  section { box-sizing: border-box }
+  section {
+    box-sizing: border-box;
+  }
 }
 a {
   text-decoration: none;
   color: #222;
 }
 .flip-cards {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.mat-drawer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 100%;
+  position: fixed;
 }
 .dark-theme {
+
+  background-color: #222 !important;
+  mat-drawer-container, app-root {
+    background-color: #222 !important;
+  }
+  mat-drawer {
+    background-color: #424242 !important;
+
+     h1 {
+       color: #fff;
+     }
+  }
   .mat-drawer-content {
     background-color: #222;
   }
@@ -31,18 +61,19 @@ a {
     background-color: #424242 !important;
     color: #f4f4f4 !important;
   }
+
   mat-expansion-panel-header:hover {
     background-color: #313131 !important;
     color: #f4f4f4 !important;
     mat-panel-title {
-        background-color: #313131 !important;
+      background-color: #313131 !important;
     }
   }
-  a {
+  a, .mat-slide-toggle-label {
     color: #f4f4f4 !important;
   }
 }
 
 .mat-dialog-container {
-    border-radius: 25px;
+  border-radius: 25px;
 }
