@@ -1,15 +1,20 @@
 {
-  "name": "green-energy",
+  "name": "ts-cards",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node ./readMarkDown.js && ng serve",
-    "build": "node ./readMarkDown.js && ng build",
+    "start": "npm run build_posts && ng serve",
+    "build": "npm run build_posts && ng build && npm run docs",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "docs": "typedoc --options typedoc.json --exclude '**/*.spec.ts' ./src/ &&  http-server ./docs",
+    "e2e": "ng e2e",
+    "build_posts": "node ./readMarkDown.js",
+    "coveralls": "ng test --coverage && cat ./coverage/lcov.info | coveralls",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^7.2.13",
     "@angular/cdk": "^7.3.7",
@@ -23,9 +28,11 @@
     "@angular/pwa": "^0.12.4",
     "@angular/router": "~7.2.0",
     "@angular/service-worker": "~7.2.0",
+    "angular-fittext": "^2.1.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
-    "ngx-markdown": "^7.1.5",
+    "marked": "^0.6.2",
+    "ngx-md": "^7.1.3",
     "normalize.css": "^8.0.1",
     "rxjs": "^6.3.3",
     "tslib": "^1.9.0",
@@ -40,6 +47,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",
     "codelyzer": "~4.5.0",
+    "coveralls": "^3.0.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
@@ -50,6 +58,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
+    "typedoc": "^0.14.2",
     "typescript": "~3.2.2",
     "yaml-front-matter": "^4.0.0"
   }
