@@ -6,6 +6,7 @@ import { Post } from 'src/app/post/post.model';
 import { EventEmitter } from 'events';
 import { FilterService } from '../filter-service/filter.service';
 import { posts } from '../../../../assets/meta.json';
+import { IsStringService } from '../../is-string.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,29 +15,35 @@ export class PostsService {
 
   @Output() filterLabel: EventEmitter = new EventEmitter();
 
-  posts: Post[];
+  posts: Array<Post>;
   currentFilter: null | string;
 
   constructor(
     private location: Location,
+    private utils: IsStringService,
     public filterService: FilterService
   ) {
-    this.posts = posts;
-
+    this.posts = [...posts, { label: 'Think you can Help?' } as Post ];
     this.filterService
-        .get()
-        .subscribe((data) => {
-          this.currentFilter = !data ? null : data;
-        });
-   }
+      .get()
+      .subscribe((data) => {
+        this.currentFilter = !data ? null : data;
+      });
+  }
 
 
   getPosts() {
     if (this.currentFilter) {
-      return this.posts.filter(post => (
-        post.type.toLowerCase().match(this.currentFilter.toLowerCase()) ||
-        this.currentFilter.toLowerCase().match(post.category.toLowerCase())
-      ));
+      return this.posts.filter(post => {
+        if (!post.type) {
+          return true;
+        }
+
+        return (
+          post.type.toLowerCase().match(this.currentFilter.toLowerCase()) ||
+          this.currentFilter.toLowerCase().match(post.category.toLowerCase())
+        );
+      });
     }
 
     return this.posts;
@@ -79,11 +86,11 @@ export class PostsService {
     );
   }
 
-  setCurrentFilter(filter: string) {
+  setCurrentFilter(filter: string)  {
     this.filterService.set(filter);
   }
 
-  clear() {
+    clear() {
     this.currentFilter = null;
   }
 

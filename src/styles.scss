@@ -31,7 +31,11 @@ a {
 .flip-cards {
   cursor: pointer;
 }
-
+.github-star {
+  position: absolute !important;
+  top: 27px !important;
+  left: 150px !important;
+}
 .mat-drawer-content {
   max-width: 1100px;
   margin: 0 auto;

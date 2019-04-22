@@ -62,11 +62,11 @@ mat-drawer-container {
 }
 
 app-post {
+  max-width: 285px;
   transition: 1s;
 }
-.cdk-drop-list-dragging .cdk-drag {
-  opacity: unset !important;
-}
+
+
 .toggle {
   background-color: transparent;
   z-index: 5;

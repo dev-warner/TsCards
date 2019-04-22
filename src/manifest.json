@@ -1,11 +1,11 @@
 {
   "name": "Ts Cards",
   "short_name": "tsc",
-  "theme_color": "#007ACC",
-  "background_color": "#fafafa",
+  "theme_color": "#264348",
+  "background_color": "#4daf7c",
   "display": "minimal-ui",
   "orientation": "portrait",
-  "scope": "/",
+  "Scope": "/",
   "start_url": "/",
   "icons": [
     {

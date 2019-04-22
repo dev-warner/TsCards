@@ -30,6 +30,13 @@ app-sidenav {
   &__social {
     display: flex;
     width: 300px;
+    z-index: 3;
+    position: relative;
+
+    a {
+      margin-right: 5px;
+    }
+
   }
 
   &__parent-links {

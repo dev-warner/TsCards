@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,7 +9,7 @@ import { LayoutModule, MediaMatcher } from '@angular/cdk/layout';
 
 import { StoreModule } from '@ngrx/store';
 
-import { MatSidenavModule } from '@angular/material';
+import { MatSidenavModule, MatFormFieldModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -40,7 +40,8 @@ import { FILTER_POSTS, filterPosts } from './core/store/filter.reducer';
 import { DARK_THEME, darkTheme} from './core/store/dark-theme.reducer';
 import { SIDE_NAV, sideNav } from './core/store/sidenav.reducer';
 
-import 'prismjs/components/prism-javascript';
+// import 'prismjs/components/prism-javascript';
+import { IsStringService } from './core/is-string.service';
 
 
 
@@ -55,17 +56,15 @@ import 'prismjs/components/prism-javascript';
   imports: [
     NgxMdModule.forRoot(),
     StoreModule.forRoot({}),
-    StoreModule
-      .forFeature('darkTheme', DARK_THEME),
-    StoreModule
-      .forFeature('sideNav', SIDE_NAV),
-    StoreModule
-      .forFeature('filterPosts', FILTER_POSTS),
+    StoreModule.forFeature('darkTheme', DARK_THEME),
+    StoreModule.forFeature('sideNav', SIDE_NAV),
+    StoreModule.forFeature('filterPosts', FILTER_POSTS),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatFormFieldModule,
     MatIconModule,
     MatDividerModule,
     MatCardModule,
@@ -77,7 +76,7 @@ import 'prismjs/components/prism-javascript';
     MatExpansionModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production ? true : false }),
   ],
   exports: [
     MatSidenavModule,
@@ -92,6 +91,7 @@ import 'prismjs/components/prism-javascript';
     MatSlideToggleModule,
     MatSnackBarModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
   ],
   providers: [
@@ -104,6 +104,7 @@ import 'prismjs/components/prism-javascript';
     Platform,
     darkTheme,
     sideNav,
+    IsStringService,
     filterPosts
   ],
   bootstrap: [AppComponent]

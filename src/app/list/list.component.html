@@ -4,14 +4,12 @@
   cdkDropList
   cdkDropListOrientation="horizontal"
   (cdkDropListDropped)="drop($event)"
-  (mousedown)="unsetAll()"
 >
-  <section class="post-list__list">
+  <section class="post-list__list" [@fade]="'in'">
     <app-post
       cdkDrag
       *ngFor="let item of postService.getPosts()"
       [post]="item"
-      [@fade]="'in'"
     >
     </app-post>
   </section>

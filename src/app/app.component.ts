@@ -11,6 +11,8 @@ import { PostsService } from './core/services/post-service/posts.service';
 import { ThemeService } from './core/services/theme-service/theme.service';
 import { CLOSE, OPEN, TOGGLE } from './core/store/sidenav.reducer';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { IsStringService } from './core/is-string.service';
+import { Post } from './post/post.model';
 
 
 
@@ -52,6 +54,7 @@ export class AppComponent implements OnInit {
     public postService: PostsService,
     public location: Location,
     public filterService: FilterService,
+    private utils: IsStringService,
     public themeService: ThemeService,
     public store: Store<AppState>,
   ) {
@@ -76,9 +79,13 @@ export class AppComponent implements OnInit {
       try {
 
         if (!this.isHome()) {
-          const { path } = this.postService.getNextPost();
+          const post = (this.postService.getNextPost());
 
-          this.next = 'detail/' + path;
+          if (this.utils.isString(post)) {
+            return '/contribute';
+          }
+
+          this.next = !post ? '/' : 'detail/' + (post as Post).path;
         }
       } catch (_) { }
 
@@ -119,9 +126,13 @@ export class AppComponent implements OnInit {
   }
 
   public currentPath() {
-    const { path } = this.postService.getNextPost();
+    const post = this.postService.getNextPost();
 
-    return 'detail' + path.toLowerCase();
+    if ((!post.category)) {
+      return '/';
+    }
+
+    return 'detail' + (post as Post).path.toLowerCase();
   }
 
   private onMobileDetection() {
@@ -143,6 +154,7 @@ export class AppComponent implements OnInit {
   }
 
   private showAddToHomeScreen(deferredPrompt) {
+    (this.deferredPrompt as any).prompt();
     this.snackBar.open(
       'Want to add these flash cards to your Home for Offline use & study 🤘',
       'Confirm',
@@ -151,7 +163,6 @@ export class AppComponent implements OnInit {
       }
     ).onAction()
       .subscribe(async () => {
-        (this.deferredPrompt as any).prompt();
 
         const { outcome } = await (deferredPrompt as any).userChoice();
 

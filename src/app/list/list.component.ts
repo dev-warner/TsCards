@@ -4,6 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { style, transition, animate, trigger, query, stagger, keyframes, state } from '@angular/animations';
 import { EventEmitter } from 'events';
 import { PostsService } from '../core/services/post-service/posts.service';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -40,20 +41,9 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
-
   get flip() {
     return this.isFlipped;
   }
-
-  unsetAll() {
-    document.querySelectorAll('.cdk-drag')
-            .forEach((elm) => this.unset(elm));
-  }
-
-  unset(elem: Element) {
-    elem.setAttribute('style', 'opcaity:unset;');
-  }
-
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.postService.posts, event.previousIndex, event.currentIndex);

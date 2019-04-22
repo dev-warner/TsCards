@@ -30,8 +30,8 @@ $my-app-warn: mat-palette($mat-deep-orange);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 .dark-theme {
-  mat-icon {
-    color: #f4f4f4;
+  mat-icon, code {
+    color: #f4f4f4 !important;
   }
   .back,
   .forward {
@@ -58,6 +58,8 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
   @include angular-material-theme($dark-theme);
 }
 .markdown {
+  max-width: 800px;
+
   @import "../core/code_dracula.scss";
   padding: 18px;
   height: 100%;
@@ -145,6 +147,22 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     font-size: 2em;
     margin: 0.83em 0;
   }
+  p:empty, a:empty {
+    display: none !important;
+  }
+  .flex {
+    display: flex !important;
+    justify-content: flex-start;
+    img {
+      margin: 0 5px 0 0;
+    }
+    p,
+    a {
+      margin: 0 0px 0 0;
+      height: 15px;
+      display: block;
+    }
+  }
   h3,
   dt {
     font-size: 1.3em;
@@ -195,9 +213,12 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     word-wrap: break-word;
   }
 
+  code {
+    color: #f8f5f0;
+  }
   pre {
     background-color: #f8f5f0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     overflow-x: auto;
     padding: 1.3rem;
     position: relative;
@@ -438,6 +459,9 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
   p,
   pre {
     color: #fff !important;
+  }
+  h2 {
+    line-height: 1.2;
   }
   h1,
   h2,

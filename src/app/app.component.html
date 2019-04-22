@@ -9,7 +9,6 @@
 >
   <mat-icon [@fade]="'in'" aria-label="toggle icon">menu</mat-icon>
 </button>
-
 <mat-drawer-container
   [hasBackdrop]="false"
   [@fade]="'in'"
@@ -43,12 +42,12 @@
     #sidenav
     class="sidenav"
     [opened]="open | async"
-    mode="{{ mobileQuery.isMatched ? 'over' : 'push' }}"
+    mode="{{ mobileQuery.matches ? 'over' : 'push' }}"
   >
-    <app-sidenav clasos="sidenav"> </app-sidenav>
+    <app-sidenav class="sidenav" [isMobile]="mobileQuery.matches"> </app-sidenav>
   </mat-drawer>
 
-  <div class="main-body" (click)="open ? toggle() : null">
+  <div class="main-body" (click)="(open && mobileQuery.matches) ? toggle() : null">
     <router-outlet [@fade]="'in'"></router-outlet>
   </div>
 </mat-drawer-container>

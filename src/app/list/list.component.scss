@@ -26,6 +26,7 @@ app-list, main-body {
   @media (min-width: 500px) {
     &__list {
       flex-direction: row;
+      width: auto;
       justify-content: space-around;
     }
     flex-wrap: wrap;

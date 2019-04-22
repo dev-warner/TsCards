@@ -12,7 +12,7 @@ Binary search works on sorted arrays. Binary search begins by comparing the midd
 
 then splitting the array in half by checking if the middle is lower or higher than the target, continuing til it finds its target or returns falsy.
 
-this creates a worse case time complexity of O(log n) an average performance of O(log n) (Logarithmic time) and a best case O(1).
+this creates a worse case time complexity of O(log n) an average performance of O(log n) (Logarithmic time 🔥) and a best case O(1).
 
 An O(log n) algorithm is considered highly efficient, as the ratio of the number of operations to the size of the input decreases and tends to zero when n increases. An algorithm that must access all elements of its input cannot take logarithmic time, as the time taken for reading an input of size n is of the order of n.
 

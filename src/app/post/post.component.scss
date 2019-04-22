@@ -1,15 +1,21 @@
-
+.contribute {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .post {
+  z-index: 2;;
   min-width: 285px;
   max-width: 285px;
   left: -16px;
-  height: 500px;
+  height: 550px;
   border-radius: 25px;
   overflow: hidden;
   position: relative;
   transition: 1s;
   perspective: 1000px;
-  margin: 20px auto;
+  margin: 16px auto;
 
   &__title {
     cursor: move;
@@ -87,7 +93,7 @@
 @media (min-width: 630px) {
   .post {
     min-width: 285px;
-    margin: 20px;
+    margin: 16px;
   }
 }
 
@@ -95,7 +101,6 @@
   .post {
     max-width: 285px;
     min-width: 285px;
-    margin: 20px;
 
     img {
       width: 317px;

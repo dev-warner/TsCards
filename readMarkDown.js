@@ -61,6 +61,9 @@ async function genereateMetaDataStart() {
 
         fs.writeFileSync('./src/assets/meta.json', JSON.stringify(results));
 
+        fs.createReadStream('./README.md')
+          .pipe(fs.createWriteStream('./src/assets/README.md'));
+
         console.log(`Results:`);
         console.log('Categorys: ' + inspect(categorys, false, null, true /* enable colors */));
 

@@ -17,14 +17,14 @@ jobs:
         provider: surge
         skip_cleanup: true
         project: ./dist/tsCards
-        domain: tscards.sh
+        domain: tscards.surge.sh
     - stage: deploy
       node_js: lts/*
       deploy:
         provider: surge
         skip_cleanup: true
         project: ./dist/tsCards
-        domain: docs.tscards.sh
+        domain: docs.tscards.surge.sh
 cache:
   directories:
     - node_modules

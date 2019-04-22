@@ -1,24 +1,36 @@
 <mat-card class="post">
   <div class="flip-card-inner">
     <div class="flip-card-front">
-      <mat-card-header *ngIf="post.label">
-        <mat-card-title cdkDragHandle class="post__title">{{
-          post.label
-        }}</mat-card-title>
-        <mat-card-subtitle
-          >{{ post.type }}, {{ post.category }}
+      <mat-card-header *ngIf="post">
+        <mat-card-title cdkDragHandle class="post__title">
+          <h2 *ngIf="post">{{post.label}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <span>
+              {{ post.type }}<span *ngIf="post.category">,</span> {{ post.category }}
+          </span>
         </mat-card-subtitle>
         <a
           class="post__share"
           *ngIf="post.type"
           target="_blank"
-          href="http://twitter.com/share?text={{craftTweet()}}&url=http://www.tscards.sh">
+          href="http://twitter.com/share?text={{craftTweet()}}&url=http://www.tscards.surge.sh">
           <mat-icon aria-label="Share on twitter">share</mat-icon>
         </a>
       </mat-card-header>
-      <img mat-card-image src="{{ post.image }}" alt="Abstact image" />
-      <mat-card-content>
-        <mat-chip-list class="post__complexity">
+      <img mat-card-image src="{{ post.image || '/assets/backgrounds/3.png' }}" alt="Abstact image" />
+
+      <button
+        *ngIf="!post.category"
+        routerLink="/contribute"
+        mat-button class="contribute" mat-fab>
+        <mat-icon aria-label="add">
+          add
+        </mat-icon>
+      </button>
+
+      <mat-card-content >
+        <mat-chip-list *ngIf="post.time || post.space" class="post__complexity">
           <mat-chip *ngIf="post.time" class="post__time post__complexity-item"
             >time: {{ post.time }}</mat-chip
           >
