@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# tsCards
-=======
 # Ts Cards Algorithms & Data Structures in TypeScript.
->>>>>>> develop-feature-0
 
 ![Ts Card Logo](https://i.imgur.com/9XFzY6g.png)
 
