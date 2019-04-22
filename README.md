@@ -1,10 +1,41 @@
+<<<<<<< HEAD
 # tsCards
+=======
+# Ts Cards Algorithms & Data Structures in TypeScript.
+>>>>>>> develop-feature-0
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+![Ts Card Logo](https://i.imgur.com/9XFzY6g.png)
+
+##### Plans to post a new card each week follow get updates!
+
+<div class="flex">
+
+[![Build Status](https://travis-ci.org/dev-warner/TsCards.svg?branch=master)](https://travis-ci.org/dev-warner/TsCards)
+
+[![Coverage Status](https://coveralls.io/repos/github/dev-warner/tscards/badge.svg)](https://coveralls.io/gitub/dev-warner/tscards)
+
+![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square")
+
+![npm version](https://img.shields.io/npm/v/tscards.svg?style=flat-square)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+</div>
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+# Getting Started
+
+- [Documentation](http://tscards-docs.surge.sh/)
+- [Github](https://github.com/dev-warner/TsCards)
+- [site](http://tscards.surge.sh/)
+
+Posts go in /assets/type/name_of_thing
+
+Contributions wellcome we follow [semantic release](https://github.com/semantic-releasex/semantic-release) guidelines for commit messages and prettier for code style.
+
+just include an implementation in TypeScript and the core details around the Algorithms || Data Structure.
 
 ## Code scaffolding
 
@@ -25,3 +56,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+**Free Software, Hell Yeah!**

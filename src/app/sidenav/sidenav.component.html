@@ -4,24 +4,23 @@
 
 <nav class="sidenav__navigation">
   <mat-accordion class="sidenav__accordian">
-    <mat-expansion-panel *ngFor="let link of links">
+    <mat-expansion-panel *ngFor="let link of links; index as index">
       <mat-expansion-panel-header>
-        <mat-panel-title tabindex="0">
+        <mat-panel-title tabindex="{{ index }}">
           {{ link.label }}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
       <ul class="sidenav__parent-links">
         <li
-          tabindex="1"
           class="sidenav__child"
-          *ngFor="let child of link.links"
-          (click)="
-            child.count ? toggleAndFilter(child) : null
-          "
+          tabindex="{{ i }}"
+          *ngFor="let child of link.links; index as i"
+          (click)="child.count && (isMobile ? toggleAndFilter(child) : filter(child))"
         >
           <a
             *ngIf="!isResources(link.label)"
+            routerLink="/"
             [ngClass]="{
               'active': postService.isCurrent(child.label),
               'disabled': !count
@@ -34,16 +33,17 @@
               'active': postService.isCurrent(child.label),
               'disabled': !count
             }"
+            target="_blank"
             *ngIf="isResources(link.label)"
           >
-            @{{ child.author }} -
+            {{ child.author }} -
             {{ child.label }}
           </a>
 
           <small
             *ngIf="!isResources(link.label) && child.count"
             aria-label="count"
-            >({{ child.count }})</small
+            >{{ child.count }})</small
           >
         </li>
       </ul>
@@ -52,14 +52,16 @@
 </nav>
 
 <section class="sidenav__options">
-  <mat-slide-toggle class="example-margin" [color] [disabled]="true">
+  <mat-slide-toggle
+    class="example-margin"
+    [disabled]="true"
+    [color]>
     Test your Skills! - <span class="accent">Coming soon</span>
   </mat-slide-toggle>
   <br />
   <mat-slide-toggle
-    [checked]="isDarkTheme | async"
-    (change)="toggleDarkTheme($event.checked)"
-    class="example-margin"
+    (change)="themeSerivce.toggle()"
+    [checked]="dark"
     [color]
   >
     Dark mode
@@ -68,9 +70,13 @@
 
 <section class="sidenav__social">
   <span *ngFor="let social of socials">
-    <a href="{{ social.link }}" class="{{ social.label }}">{{
-      social.label
-    }}</a>
-    .
+    <a
+      target="_blank"
+      href="{{ social.link }}"
+      class="social__label {{ social.label }}">
+      {{ social.label }}
+    </a>
+
   </span>
 </section>
+

@@ -1,9 +1,11 @@
 app-list, main-body {
-  width: 100%;
   display: block;
 }
+.animate-fade.ng-hide-add {
+  transition: all 1s ease;
+  opacity: 1;
+}
 .post-list {
-  width: 100%;
   padding: 16px;
   display: flex;
 
@@ -17,9 +19,23 @@ app-list, main-body {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 60px 0;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  @media (min-width: 500px) {
+    &__list {
+      flex-direction: row;
+      width: auto;
+      justify-content: space-around;
+    }
+    flex-wrap: wrap;
+    flex-direction: row;
   }
 
   @media (min-width: 768px) {
+    padding: 16px 0;
+    width: auto;
 
     &__list {
       justify-content: flex-start;

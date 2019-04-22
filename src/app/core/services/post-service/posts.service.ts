@@ -1,9 +1,12 @@
 import { Injectable, Output } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { Post } from 'src/app/post/post.model';
 
-import { posts } from '../../../../assets/meta.json';
 import { EventEmitter } from 'events';
+import { FilterService } from '../filter-service/filter.service';
+import { posts } from '../../../../assets/meta.json';
+import { IsStringService } from '../../is-string.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +15,65 @@ export class PostsService {
 
   @Output() filterLabel: EventEmitter = new EventEmitter();
 
-  posts: Post[];
+  posts: Array<Post>;
   currentFilter: null | string;
 
-  constructor() {
-    this.posts = posts;
-
-    this.filterLabel.on('filter', (_, data) => {
-      this.currentFilter = !data ? null : data;
-    });
-   }
+  constructor(
+    private location: Location,
+    private utils: IsStringService,
+    public filterService: FilterService
+  ) {
+    this.posts = [...posts, { label: 'Think you can Help?' } as Post ];
+    this.filterService
+      .get()
+      .subscribe((data) => {
+        this.currentFilter = !data ? null : data;
+      });
+  }
 
 
   getPosts() {
     if (this.currentFilter) {
-      return this.posts.filter(post => (
-        post.type.toLowerCase().match(this.currentFilter.toLowerCase()) ||
-        this.currentFilter.toLowerCase().match(post.category.toLowerCase())
-      ));
+      return this.posts.filter(post => {
+        if (!post.type) {
+          return true;
+        }
+
+        return (
+          post.type.toLowerCase().match(this.currentFilter.toLowerCase()) ||
+          this.currentFilter.toLowerCase().match(post.category.toLowerCase())
+        );
+      });
     }
 
     return this.posts;
+  }
+
+  getCurrentPost() {
+    const pathLocation = this.location.path();
+    const current = pathLocation.substring(7, pathLocation.length);
+
+    const matchedPath = (target) => {
+      return target.path === current;
+    };
+
+    const path = this.posts.find(matchedPath);
+
+    if (path) {
+      return path;
+    }
+  }
+
+  getNextPost(post = this.getCurrentPost()) {
+    const index = this.posts.indexOf(post) + 1;
+
+    if (!post) {
+      return;
+    }
+
+    return index > this.posts.length ?
+      this.posts[0] :
+      this.posts[index];
   }
 
   isCurrent(filter: string) {
@@ -45,8 +86,8 @@ export class PostsService {
     );
   }
 
-  setCurrentFilter(filter: string) {
-    this.currentFilter = filter;
+  setCurrentFilter(filter: string)  {
+    this.filterService.set(filter);
   }
 
   clear() {

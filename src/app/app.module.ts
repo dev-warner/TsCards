@@ -1,10 +1,15 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMdModule } from 'ngx-md';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LayoutModule, MediaMatcher } from '@angular/cdk/layout';
 
-import { MatSidenavModule } from '@angular/material';
+import { StoreModule } from '@ngrx/store';
+
+import { MatSidenavModule, MatFormFieldModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -17,7 +22,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
@@ -27,9 +31,18 @@ import { MarkdownPostComponent } from './markdown-post/markdown-post.component';
 
 import { ThemeService } from './core/services/theme-service/theme.service';
 import { PostsService } from './core/services/post-service/posts.service';
+import { FilterService } from './core/services/filter-service/filter.service';
+import { StorageService } from './core/services/storage-service/storage.service';
 
 import { environment } from '../environments/environment';
-import { MarkdownModule } from 'ngx-markdown';
+
+import { FILTER_POSTS, filterPosts } from './core/store/filter.reducer';
+import { DARK_THEME, darkTheme} from './core/store/dark-theme.reducer';
+import { SIDE_NAV, sideNav } from './core/store/sidenav.reducer';
+
+// import 'prismjs/components/prism-javascript';
+import { IsStringService } from './core/is-string.service';
+
 
 
 @NgModule({
@@ -41,12 +54,17 @@ import { MarkdownModule } from 'ngx-markdown';
     MarkdownPostComponent,
   ],
   imports: [
-    MarkdownModule.forChild(),
+    NgxMdModule.forRoot(),
+    StoreModule.forRoot({}),
+    StoreModule.forFeature('darkTheme', DARK_THEME),
+    StoreModule.forFeature('sideNav', SIDE_NAV),
+    StoreModule.forFeature('filterPosts', FILTER_POSTS),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatFormFieldModule,
     MatIconModule,
     MatDividerModule,
     MatCardModule,
@@ -58,7 +76,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MatExpansionModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production ? true : false }),
   ],
   exports: [
     MatSidenavModule,
@@ -71,13 +89,23 @@ import { MarkdownModule } from 'ngx-markdown';
     MatGridListModule,
     MatExpansionModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
   ],
   providers: [
     ThemeService,
-    PostsService
+    PostsService,
+    StorageService,
+    FilterService,
+    LayoutModule,
+    MediaMatcher,
+    Platform,
+    darkTheme,
+    sideNav,
+    IsStringService,
+    filterPosts
   ],
   bootstrap: [AppComponent]
 })

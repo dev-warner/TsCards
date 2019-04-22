@@ -1,18 +1,2 @@
+@import "../core/code_dracula.scss";
 
-
-.single-post {
-    img {
-        width: 60%;
-    }
-}
-
-markdown {
-    width: 100%;
-    display: block
-
-}
-
-markdown > img {
-    display: block;
-    max-width: 100%;
-}

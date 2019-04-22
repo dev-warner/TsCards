@@ -1,11 +1,21 @@
+.contribute {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .post {
+  z-index: 2;;
   min-width: 285px;
-  height: 500px;
+  max-width: 285px;
+  left: -16px;
+  height: 550px;
   border-radius: 25px;
   overflow: hidden;
   position: relative;
+  transition: 1s;
   perspective: 1000px;
-  margin: 20px auto;
+  margin: 16px auto;
 
   &__title {
     cursor: move;
@@ -17,22 +27,6 @@
 
   &__actions {
     padding: 0 0 10px 10px !important;
-  }
-
-  @media (min-width: 500px) {
-    margin: 20px;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 250px;
-    margin: 20px;
-
-    img {
-      width: 317px;
-      display: block;
-      background-color: #ccc;
-      height: 228px;
-    }
   }
 
   .flip-card-inner {
@@ -47,10 +41,12 @@
     transform: rotateY(180deg);
   }
 
+  .contribute--container {
+    width: 260px;
+  }
   .flip-card-front,
   .flip-card-back {
     position: absolute;
-    width: 100%;
     height: 100%;
     backface-visibility: hidden;
   }
@@ -88,6 +84,31 @@
         height: 500px !important;
         border-radius: 25px;
       }
+    }
+  }
+}
+@media (min-width: 400px) {
+  .post {
+    left: 0;
+  }
+}
+@media (min-width: 630px) {
+  .post {
+    min-width: 285px;
+    margin: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .post {
+    max-width: 285px;
+    min-width: 285px;
+
+    img {
+      width: 317px;
+      display: block;
+      background-color: #ccc;
+      height: 228px;
     }
   }
 }

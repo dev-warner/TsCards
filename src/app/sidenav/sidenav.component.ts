@@ -6,6 +6,8 @@ import { ThemeService } from '../core/services/theme-service/theme.service';
 import { PostsService } from '../core/services/post-service/posts.service';
 
 import { categorys, social } from '../../assets/meta.json';
+import { Store } from '@ngrx/store';
+import { TOGGLE } from '../core/store/dark-theme.reducer';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,33 +17,39 @@ import { categorys, social } from '../../assets/meta.json';
 
 export class SidenavComponent implements OnInit {
 
-  @Input() toggle: () => void;
+  @Input() isMobile;
   @Output() filterEmitter: EventEmitter = new EventEmitter();
 
   title = 'Algorithms & Data Structures in TypeScript.';
   socials = social;
   links = categorys;
-  isDarkTheme: Observable<boolean>;
+  sidenav: Observable<boolean>;
+  dark: boolean;
 
-  constructor(public postService: PostsService, private themeService: ThemeService) {}
+  constructor(
+    public postService: PostsService,
+    public themeSerivce: ThemeService,
+    private store: Store<AppState>
+  ) {
+    this.sidenav = this.store.select('sidenavOpen');
+  }
 
   ngOnInit() {
-    this.isDarkTheme = this.themeService.isDarkTheme;
+    this.themeSerivce
+        .isDarkTheme
+        .subscribe((theme) => {
+          this.dark = this.themeSerivce
+                          .isDarkThemeFromKey(theme);
+        });
   }
 
   toggleAndFilter({ label }) {
-    this.toggle();
     this.postService.setCurrentFilter(label);
+    this.store.dispatch({ type: TOGGLE });
   }
 
-  toggleDarkTheme(checked: boolean) {
-    this.themeService.setDarkTheme(checked);
-
-    try {
-      window.localStorage.setItem('dark', `${checked}`);
-    } catch (e) {
-      console.error('Not available');
-    }
+  filter({ label }) {
+    this.postService.setCurrentFilter(label);
   }
 
   isResources(label: string): boolean {

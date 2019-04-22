@@ -1,24 +1,49 @@
-import { Injectable, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, Output, RendererFactory2, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { EventEmitter } from 'events';
+import { Store } from '@ngrx/store';
+import { TOGGLE } from '../../store/dark-theme.reducer';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class ThemeService {
+
   @Output() DARK_THEME = new EventEmitter();
 
-  private darkTheme: Subject<boolean> = new Subject<boolean>();
-  isDarkTheme = this.darkTheme.asObservable();
+  public body: Element;
+  private previous: boolean;
+  private renderer: Renderer2;
 
-  constructor() {
-    const saved =  window.localStorage.getItem('dark');
+  public isDarkTheme: Observable<boolean> = new Observable<boolean>();
 
-    if (saved) {
-      this.setDarkTheme(Boolean(saved));
-    }
+  constructor(
+    private renderFactory2: RendererFactory2,
+    private store: Store<AppState>
+  ) {
+    this.body = document.querySelector('body');
+    this.renderer = renderFactory2.createRenderer(null, null);
+    this.isDarkTheme = store.select('darkTheme');
+
+    this.isDarkTheme.subscribe((key) => {
+      if (key === this.previous) {
+        return;
+      }
+
+      this.previous = key;
+
+      this.isDarkThemeFromKey(key) ?
+        this.renderer.addClass(this.body, 'dark-theme') :
+        this.renderer.removeClass(this.body, 'dark-theme');
+    });
   }
 
-  setDarkTheme(isDarkTheme: boolean) {
-    this.DARK_THEME.emit(`${isDarkTheme}`);
-    this.darkTheme.next(isDarkTheme);
+  isDarkThemeFromKey(key) {
+    return key === 'dark';
+  }
+
+  toggle() {
+    this.store.dispatch({ type: TOGGLE, state: this.previous });
   }
 }

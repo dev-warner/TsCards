@@ -3,6 +3,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "typeRoots": [
+      "/node_modules/@types",
+      "/dist/out-tsc",
+      "/types/global"
+    ],
+    "types" : [
+      "core-js"
+    ],
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",
@@ -13,9 +21,6 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "lib": [
       "es2018",
       "dom"

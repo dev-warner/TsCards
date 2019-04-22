@@ -5,7 +5,8 @@ import { MarkdownPostComponent } from './markdown-post/markdown-post.component';
 
 const routes: Routes = [
   { path: '', component: ListComponent, pathMatch: 'full'  },
-  { path: 'detail/:type/:name', component: MarkdownPostComponent }
+  { path: 'detail/:type/:name', component: MarkdownPostComponent, pathMatch: 'full' },
+  { path: 'contribute', component: MarkdownPostComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

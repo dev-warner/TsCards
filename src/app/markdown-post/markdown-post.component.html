@@ -1,2 +1,15 @@
-<markdown class="single-post" [src]="createPath()"></markdown>
-
+<div class="markdown__container">
+  <button class="github-star">
+    <a
+      class="github-button"
+      href="https://github.com/dev-warner/tscards"
+      data-icon="octicon-star"
+      aria-label="Star dev-warner/tscards on GitHub"
+      *ngIf="location.path() === '/contribute'"
+      >
+      Star
+    </a>
+  </button>
+  <ngx-md class="single-post markdown" [path]="createPath()" [@fade]="'in'">
+  </ngx-md>
+</div>

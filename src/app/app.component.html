@@ -1,36 +1,53 @@
+<button
+  class="toggle"
+  type="button"
+  mat-button
+  aria-label="toggle sidebar"
+  [@fade]="'in'"
+  (click)="toggle()"
+  *ngIf="!(mobileQuery.matches && open | async)"
+>
+  <mat-icon [@fade]="'in'" aria-label="toggle icon">menu</mat-icon>
+</button>
 <mat-drawer-container
   [hasBackdrop]="false"
-  [ngClass]="{ 'dark-theme': isDarkTheme | async }"
+  [@fade]="'in'"
+  [ngClass]="{ 'dark-theme': theme }"
 >
-  <button
-    class="toggle"
-    type="button"
-    mat-button
-    (click)="toggle()"
-    aria-label="toggle sidebar"
-  >
-    <mat-icon aria-label="toggle icon">menu</mat-icon>
+  <button class="back" [@fade]="'in'" *ngIf="!isHome()">
+    <mat-icon (click)="location.back()" aria-label="back">
+      keyboard_arrow_left
+    </mat-icon>
   </button>
+
+  <button class="forward" [@fade]="'in'" *ngIf="!isHome()">
+    <a *ngIf="next" routerLink="{{ next }}">
+      <mat-icon aria-label="forward">
+        keyboard_arrow_right
+      </mat-icon>
+    </a>
+  </button>
+  <mat-chip-list
+    class="filter"
+    [@fade]="'in'"
+    *ngIf="isHome() && currentFilter"
+  >
+    <mat-chip>
+      {{ currentFilter }}
+      <mat-icon matChipRemove (click)="filterService.clear()">cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
 
   <mat-drawer
     #sidenav
     class="sidenav"
+    [opened]="open | async"
     mode="{{ mobileQuery.matches ? 'over' : 'push' }}"
-    opened="{{ open }}"
   >
-    <app-sidenav
-      class="sidenav"
-      toggle-dark-theme="toggleDarkTheme"
-      is-dark-theme="isDarkTheme"
-      [toggle]="toggleBind"
-    ></app-sidenav>
-
+    <app-sidenav class="sidenav" [isMobile]="mobileQuery.matches"> </app-sidenav>
   </mat-drawer>
 
-  <div class="main-body" [ngClass]="{
-    'small': sidenav.open,
-    'smaller': mobileQuery.matches
-  }">
-    <router-outlet></router-outlet>
+  <div class="main-body" (click)="(open && mobileQuery.matches) ? toggle() : null">
+    <router-outlet [@fade]="'in'"></router-outlet>
   </div>
 </mat-drawer-container>
