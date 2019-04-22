@@ -1,5 +1,4 @@
-<!--suppress ALL -->
-<h1 routerLink="/" (click)="postService.clear()" tabindex="0">
+<h1 routerLink="/" (click)="postService.clear()">
   {{ title }}
 </h1>
 
@@ -17,21 +16,22 @@
           class="sidenav__child"
           tabindex="{{ i }}"
           *ngFor="let child of link.links; index as i"
-          (click)="child.count ? toggleAndFilter(child) : null"
+          (click)="child.count && (isMobile ? toggleAndFilter(child) : filter(child))"
         >
           <a
             *ngIf="!isResources(link.label)"
+            routerLink="/"
             [ngClass]="{
-              active: postService.isCurrent(child.label),
-              disabled: !count
+              'active': postService.isCurrent(child.label),
+              'disabled': !count
             }"
             >{{ child.label }}</a
           >
           <a
             href="{{ child.link }}"
             [ngClass]="{
-              active: postService.isCurrent(child.label),
-              disabled: !count
+              'active': postService.isCurrent(child.label),
+              'disabled': !count
             }"
             target="_blank"
             *ngIf="isResources(link.label)"
@@ -43,7 +43,7 @@
           <small
             *ngIf="!isResources(link.label) && child.count"
             aria-label="count"
-            >({{ child.count }})</small
+            >{{ child.count }})</small
           >
         </li>
       </ul>
@@ -52,13 +52,15 @@
 </nav>
 
 <section class="sidenav__options">
-  <mat-slide-toggle class="example-margin" [color] [disabled]="true">
+  <mat-slide-toggle
+    class="example-margin"
+    [disabled]="true"
+    [color]>
     Test your Skills! - <span class="accent">Coming soon</span>
   </mat-slide-toggle>
   <br />
   <mat-slide-toggle
-    (change)="themeSerivce.toggle($event.checked)"
-    class="example-margin"
+    (change)="themeSerivce.toggle()"
     [checked]="dark"
     [color]
   >
@@ -68,9 +70,13 @@
 
 <section class="sidenav__social">
   <span *ngFor="let social of socials">
-    <a target="_blank" href="{{ social.link }}" class="{{ social.label }}">{{
-      social.label
-    }}</a>
-    .
+    <a
+      target="_blank"
+      href="{{ social.link }}"
+      class="social__label {{ social.label }}">
+      {{ social.label }}
+    </a>
+
   </span>
 </section>
+

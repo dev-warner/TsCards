@@ -90,7 +90,7 @@ export class PostsService {
     this.filterService.set(filter);
   }
 
-    clear() {
+  clear() {
     this.currentFilter = null;
   }
 

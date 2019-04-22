@@ -8,18 +8,9 @@
   <section class="post-list__list" [@fade]="'in'">
     <app-post
       cdkDrag
-      *ngFor="let item of postService.getPosts()"
+      *ngFor="let item of get()"
       [post]="item"
     >
     </app-post>
-  </section>
-
-  <section class="post-list__empty" *ngIf="!postService.getPosts().length">
-    <h2>Please think of contributing</h2>
-    <code
-      ><a href="https://github.com/dev-warner/TS-Cards"
-        >https://github.com/dev-warner/TS-Cards</a
-      ></code
-    >
   </section>
 </section>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tsCards": {
+    "tscards": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tsCards",
+            "outputPath": "dist/tscards",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tsCards:build"
+            "browserTarget": "tscards:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tsCards:build:production"
+              "browserTarget": "tscards:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tsCards:build"
+            "browserTarget": "tscards:build"
           }
         },
         "test": {
@@ -117,7 +117,7 @@
         }
       }
     },
-    "tsCards-e2e": {
+    "tscards-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -126,11 +126,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tsCards:serve"
+            "devServerTarget": "tscards:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tsCards:serve:production"
+              "devServerTarget": "tscards:serve:production"
             }
           }
         },
@@ -146,5 +146,5 @@
       }
     }
   },
-  "defaultProject": "tsCards"
+  "defaultProject": "tscards"
 }

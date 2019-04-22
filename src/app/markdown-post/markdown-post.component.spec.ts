@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarkdownPostComponent } from './markdown-post.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('MarkdownPostComponent', () => {
   let component: MarkdownPostComponent;
@@ -8,7 +9,10 @@ describe('MarkdownPostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarkdownPostComponent ]
+      declarations: [ MarkdownPostComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     })
     .compileComponents();
   }));

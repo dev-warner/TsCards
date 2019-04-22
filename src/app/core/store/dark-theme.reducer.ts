@@ -4,6 +4,7 @@ import { Action, ActionReducer } from '@ngrx/store';
 import { StorageService } from '../services/storage-service/storage.service';
 
 export const TOGGLE = 'TOGGLE_THEME';
+const PERSIST: 'dark_theme' = 'dark_theme';
 
 @Injectable({ providedIn: 'root' })
 export class DarkThemeReducer {
@@ -28,7 +29,6 @@ export class DarkThemeReducer {
         };
     }
 }
-const PERSIST: 'dark_theme' = 'dark_theme';
 
 
 export const DARK_THEME = new InjectionToken<ActionReducer<string>>('darkTheme');

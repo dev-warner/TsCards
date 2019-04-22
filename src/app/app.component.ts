@@ -14,9 +14,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { IsStringService } from './core/is-string.service';
 import { Post } from './post/post.model';
 
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

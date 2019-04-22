@@ -1,8 +1,5 @@
 {
-  "extends": "tslint:recommended",
-  "rulesDirectory": [
-    "codelyzer"
-  ],
+  "extends": "./node_modules/tslint/lib/configs/recommended",
   "rules": {
     "array-type": false,
     "arrow-parens": false,

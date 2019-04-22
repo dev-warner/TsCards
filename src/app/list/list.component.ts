@@ -1,10 +1,9 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Post } from '../post/post.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { style, transition, animate, trigger, query, stagger, keyframes, state } from '@angular/animations';
+import { style, transition, animate, trigger, state } from '@angular/animations';
 import { EventEmitter } from 'events';
 import { PostsService } from '../core/services/post-service/posts.service';
-import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -22,7 +21,7 @@ import { fromEvent } from 'rxjs';
     ])
   ]
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
   @Output() filterLabel: EventEmitter = new EventEmitter();
 
@@ -38,7 +37,8 @@ export class ListComponent implements OnInit {
     this.postService = postService;
   }
 
-  ngOnInit() {
+  get(){
+    return this.postService.getPosts();
   }
 
   get flip() {

@@ -26,11 +26,14 @@ app-sidenav {
   &__divider {
     margin: 20px 0;
   }
+  mat-drawer, .mat-drawer-inner-container {
+    height: 100%;
+  }
 
   &__social {
     display: flex;
     width: 300px;
-    z-index: 3;
+    z-index: 30;
     position: relative;
 
     a {
