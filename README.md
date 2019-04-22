@@ -8,7 +8,7 @@
 <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
 <a href="https://github.com/dev-warner/fadin">
 <img alt="npm version" src="https://img.shields.io/npm/v/fadin.svg?style=flat-square"></a>
-<a><img alt="MIT" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat"></a>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Development server
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
