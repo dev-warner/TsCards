@@ -27,7 +27,7 @@ _Binary Search Tree - Binary_search_tree.svg: Booyabazooka derivative work: mova
 3.  Data structure Array
 
     - Worst-case performance O(log n)
-    - Best-case performance O(1)
+    - Best-case performance O(1) 🚀
     - Average performance O(log n)
     - Worst-case space complexity O(1)
 

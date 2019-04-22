@@ -1,22 +1,28 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Injectable} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { SET, RESET } from '../../store/filter.reducer';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
 
-  private filter: string;
+  readonly filter: Observable<string>;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {
+    this.filter = store.select('filterPosts');
+  }
 
   get() {
     return this.filter;
   }
-  set(filter) {
-    this.filter = filter;
+
+  set(current: string) {
+    this.store.dispatch({ type: SET, current });
   }
+
   clear() {
-    this.filter = null;
+    this.store.dispatch({ type: RESET, current: '' });
   }
 }

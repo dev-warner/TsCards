@@ -13,7 +13,9 @@ mat-drawer-container {
   max-width: 1440px;
 }
 
-.back, .forward {
+.back,
+.forward,
+.filter {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -21,7 +23,14 @@ mat-drawer-container {
   background-color: transparent;
   padding: 0;
   border: 0;
+}
 
+.filter {
+  top: 25px;
+}
+
+.back,
+.forward {
   mat-icon {
     font-size: 40px;
     width: 40px;
@@ -52,6 +61,12 @@ mat-drawer-container {
   width: 100%;
 }
 
+app-post {
+  transition: 1s;
+}
+.cdk-drop-list-dragging .cdk-drag {
+  opacity: unset !important;
+}
 .toggle {
   background-color: transparent;
   z-index: 5;
@@ -97,16 +112,27 @@ mat-drawer {
 
   @media (min-width: 768px) {
     .main-body {
-      padding: 40px 60px;
+      padding: 20px;
     }
 
-    .back, .forward {
-      left: 30px;
-      height: 30px;
+    .back,
+    .forward,
+    .filter {
+      left: 40px;
+      height: 40px;
+    }
+
+    .filter {
+      top: 50px;
     }
 
     .forward {
       left: 80px;
+    }
+  }
+  @media (min-width: 769) {
+    .main-body {
+      padding: 40px 60px;
     }
   }
 

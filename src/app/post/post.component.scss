@@ -1,14 +1,13 @@
-app-post {
-  width: 100%;
-  max-width: 285px;
-}
+
 .post {
-  min-width: 100%;
+  min-width: 285px;
   max-width: 285px;
+  left: -16px;
   height: 500px;
   border-radius: 25px;
   overflow: hidden;
   position: relative;
+  transition: 1s;
   perspective: 1000px;
   margin: 20px auto;
 
@@ -78,6 +77,11 @@ app-post {
         border-radius: 25px;
       }
     }
+  }
+}
+@media (min-width: 400px) {
+  .post {
+    left: 0;
   }
 }
 @media (min-width: 630px) {

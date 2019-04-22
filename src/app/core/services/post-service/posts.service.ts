@@ -3,9 +3,9 @@ import { Location } from '@angular/common';
 
 import { Post } from 'src/app/post/post.model';
 
-import { posts } from '../../../../assets/meta.json';
 import { EventEmitter } from 'events';
-import { FilterService } from '../filter-service/filter.service.js';
+import { FilterService } from '../filter-service/filter.service';
+import { posts } from '../../../../assets/meta.json';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +23,11 @@ export class PostsService {
   ) {
     this.posts = posts;
 
-    this.filterLabel.on('filter', (_, data) => {
-      this.currentFilter = !data ? null : data;
-    });
+    this.filterService
+        .get()
+        .subscribe((data) => {
+          this.currentFilter = !data ? null : data;
+        });
    }
 
 
@@ -78,7 +80,6 @@ export class PostsService {
   }
 
   setCurrentFilter(filter: string) {
-    this.currentFilter = filter;
     this.filterService.set(filter);
   }
 

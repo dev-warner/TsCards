@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 export interface StorageOject {
   theme?: boolean;
+  side_nav?: boolean;
+  dark_theme?: string;
+  filter_posts?: string;
 }
 
 @Injectable({

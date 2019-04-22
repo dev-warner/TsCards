@@ -3,7 +3,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "typeRoots": [ "./types", "./node_modules/@types"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./dist/out-tsc",
+      "./types/global"
+    ],
+    "types" : [
+      "core-js"
+    ],
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",

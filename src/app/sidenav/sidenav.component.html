@@ -1,43 +1,42 @@
 <!--suppress ALL -->
-<h1 routerLink="/" (click)="postService.clear()">
+<h1 routerLink="/" (click)="postService.clear()" tabindex="0">
   {{ title }}
 </h1>
 
 <nav class="sidenav__navigation">
   <mat-accordion class="sidenav__accordian">
-    <mat-expansion-panel *ngFor="let link of links">
+    <mat-expansion-panel *ngFor="let link of links; index as index">
       <mat-expansion-panel-header>
-        <mat-panel-title tabindex="0">
+        <mat-panel-title tabindex="{{ index }}">
           {{ link.label }}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
       <ul class="sidenav__parent-links">
         <li
-          tabindex="1"
           class="sidenav__child"
-          *ngFor="let child of link.links"
-          (click)="
-            child.count ? toggleAndFilter(child) : null
-          "
+          tabindex="{{ i }}"
+          *ngFor="let child of link.links; index as i"
+          (click)="child.count ? toggleAndFilter(child) : null"
         >
           <a
             *ngIf="!isResources(link.label)"
             [ngClass]="{
-              'active': postService.isCurrent(child.label),
-              'disabled': !count
+              active: postService.isCurrent(child.label),
+              disabled: !count
             }"
             >{{ child.label }}</a
           >
           <a
             href="{{ child.link }}"
             [ngClass]="{
-              'active': postService.isCurrent(child.label),
-              'disabled': !count
+              active: postService.isCurrent(child.label),
+              disabled: !count
             }"
+            target="_blank"
             *ngIf="isResources(link.label)"
           >
-            @{{ child.author }} -
+            {{ child.author }} -
             {{ child.label }}
           </a>
 
@@ -58,7 +57,7 @@
   </mat-slide-toggle>
   <br />
   <mat-slide-toggle
-    (change)="toggleDarkTheme($event.checked)"
+    (change)="themeSerivce.toggle($event.checked)"
     class="example-margin"
     [checked]="dark"
     [color]
@@ -69,7 +68,7 @@
 
 <section class="sidenav__social">
   <span *ngFor="let social of socials">
-    <a href="{{ social.link }}" class="{{ social.label }}">{{
+    <a target="_blank" href="{{ social.link }}" class="{{ social.label }}">{{
       social.label
     }}</a>
     .

@@ -1,50 +1,65 @@
-import { Component, OnDestroy, OnInit, ViewChild, Input } from '@angular/core';
-import { Location } from '@angular/common';
-
-import { SwUpdate } from '@angular/service-worker';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSnackBar, MatSidenav } from '@angular/material';
-import { Observable, Subject } from 'rxjs';
-
-import { ThemeService } from './core/services/theme-service/theme.service';
-import { PostsService } from './core/services/post-service/posts.service';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { FilterService } from './core/services/filter-service/filter.service';
+import { PostsService } from './core/services/post-service/posts.service';
+import { ThemeService } from './core/services/theme-service/theme.service';
+import { CLOSE, OPEN, TOGGLE } from './core/store/sidenav.reducer';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('in', style({ opacity: 1 })),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(600)
+      ]),
+      transition(':leave',
+        animate(1200, style({ opacity: 0 })))
+    ])
+  ]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
-  @Input() openedSubject: Subject<boolean> = new Subject<boolean>();
 
   private deferredPrompt: Event;
-  private mobileQueryListener: () => void;
   private home: boolean;
-  public toggleBind: () => void;
-  public mobileQuery: MediaQueryList;
-  public isDarkTheme: Observable<boolean>;
-  public filter: string;
-  public open: boolean;
   public next: string;
+  public mobileQuery;
+  public open: Observable<boolean>;
+  public theme: boolean;
+  public currentFilter: string;
+  public toggleBind: () => void;
 
   constructor(
-    private themeService: ThemeService,
     private swUpdate: SwUpdate,
     private snackBar: MatSnackBar,
     private media: MediaMatcher,
     public router: Router,
     public postService: PostsService,
     public location: Location,
-    public filterService: FilterService
+    public filterService: FilterService,
+    public themeService: ThemeService,
+    public store: Store<AppState>,
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+    this.open = this.store.select('sideNav');
+    this.mobileQuery = this.media.matchMedia('(max-width: 768px)');
     this.mobileQuery.addListener(this.onMobileDetection.bind(this));
-    this.open = !this.mobileQuery.matches;
-    this.toggleBind = this.toggle.bind(this);
+    this.watchTheme();
+    this.watchFilter();
 
     window.addEventListener('beforeinstallprompt', ($event) => {
       $event.preventDefault();
@@ -53,19 +68,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isDarkTheme = this.themeService.isDarkTheme;
-
-    if (this.open) {
-      this.sidenav.open();
+    if (!this.mobileQuery.matches) {
+      this.store.dispatch({ type: OPEN });
     }
-
-    this.openedSubject
-      .subscribe(this.sidenav.toggle.bind(this.sidenav));
 
     this.router.events.subscribe((_) => {
       try {
-
-        this.home = this.location.path() === '';
 
         if (!this.isHome()) {
           const { path } = this.postService.getNextPost();
@@ -79,22 +87,35 @@ export class AppComponent implements OnInit, OnDestroy {
     this.newVersion();
   }
 
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
+  private watchFilter() {
+    this.filterService
+      .get()
+      .subscribe((filter: string) => {
+        this.currentFilter = filter;
+      });
+  }
+
+  private watchTheme() {
+    this.themeService
+      .isDarkTheme
+      .subscribe((theme) => {
+        this.theme = (
+          this.themeService
+            .isDarkThemeFromKey(theme)
+        );
+      });
   }
 
   public isHome() {
-    return this.home;
+    return this.location.path() === '';
   }
 
   public toggle() {
-    this.openedSubject.next(!this.open);
+    this.store.dispatch({ type: TOGGLE });
   }
 
   public closePanel() {
-    if (this.mobileQuery.matches) {
-      this.sidenav.close();
-    }
+    this.store.dispatch({ type: CLOSE });
   }
 
   public currentPath() {

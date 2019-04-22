@@ -1,7 +1,8 @@
 import { Injectable, Output, RendererFactory2, Renderer2 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EventEmitter } from 'events';
-import { StorageService } from '../../storage-service/storage.service';
+import { Store } from '@ngrx/store';
+import { TOGGLE } from '../../store/dark-theme.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +13,37 @@ export class ThemeService {
   @Output() DARK_THEME = new EventEmitter();
 
   public body: Element;
-  private persistKey: 'theme' = 'theme';
-  private darkTheme: Subject<boolean> = new Subject<boolean>();
+  private previous: boolean;
   private renderer: Renderer2;
 
-  public isDarkTheme = this.darkTheme.asObservable();
+  public isDarkTheme: Observable<boolean> = new Observable<boolean>();
 
-  constructor(private renderFactory2: RendererFactory2, private storageService: StorageService) {
+  constructor(
+    private renderFactory2: RendererFactory2,
+    private store: Store<AppState>
+  ) {
     this.body = document.querySelector('body');
     this.renderer = renderFactory2.createRenderer(null, null);
+    this.isDarkTheme = store.select('darkTheme');
 
-    this.setDarkTheme(this.isDarkThemeFromKey(this.storageService.get(this.persistKey)));
+    this.isDarkTheme.subscribe((key) => {
+      if (key === this.previous) {
+        return;
+      }
+
+      this.previous = key;
+
+      this.isDarkThemeFromKey(key) ?
+        this.renderer.addClass(this.body, 'dark-theme') :
+        this.renderer.removeClass(this.body, 'dark-theme');
+    });
   }
 
   isDarkThemeFromKey(key) {
     return key === 'dark';
   }
 
-  setDarkTheme(isDarkTheme: boolean) {
-    this.darkTheme.next(isDarkTheme);
-
-    isDarkTheme ?
-      this.renderer.addClass(this.body, 'dark-theme') :
-      this.renderer.removeClass(this.body, 'dark-theme');
-
-    try {
-      this.storageService.set(this.persistKey, isDarkTheme ? 'dark' : 'light');
-    } catch (e) {
-      console.error('Not available');
-    }
+  toggle() {
+    this.store.dispatch({ type: TOGGLE, state: this.previous });
   }
 }

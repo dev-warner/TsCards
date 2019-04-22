@@ -128,6 +128,21 @@ const links = [
                 link: 'https://github.com/basarat/algorithms',
                 author: 'basarat',
                 label: 'algorithms'
+            },
+            {
+                link: 'https://basarat.gitbooks.io/typescript/content/',
+                author: 'basarat',
+                label: 'TypeScript Deep Dive'
+            },
+            {
+                link: 'https://www.typescriptlang.org/samples/index.html',
+                author: 'TypeScript',
+                label: 'Playground'
+            },
+            {
+                link: 'https://github.com/AvraamMavridis/Algorithms-Data-Structures-in-Typescript',
+                author: 'AvraamMavridis',
+                label: 'Implementations'
             }
         ]
     }

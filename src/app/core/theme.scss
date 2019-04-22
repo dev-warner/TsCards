@@ -30,6 +30,9 @@ $my-app-warn: mat-palette($mat-deep-orange);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 .dark-theme {
+  mat-icon {
+    color: #f4f4f4;
+  }
   .back,
   .forward {
     color: #f4f4f4 !important;
@@ -165,6 +168,7 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     cursor: pointer;
     outline: 0 none;
     text-decoration: underline;
+    word-wrap: break-word;
   }
 
   a:hover {
@@ -175,12 +179,14 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
   p,
   pre {
     margin: 1.4em 0;
+    word-wrap: break-word;
   }
   code,
   kbd,
   pre,
   samp {
     font-size: 0.8em;
+    word-wrap: break-word;
     margin: 0;
     padding: 0;
   }

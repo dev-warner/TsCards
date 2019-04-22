@@ -1,9 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Platform } from '@angular/cdk/platform';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxMdModule } from 'ngx-md';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LayoutModule, MediaMatcher } from '@angular/cdk/layout';
+
+import { StoreModule } from '@ngrx/store';
 
 import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,11 +32,17 @@ import { MarkdownPostComponent } from './markdown-post/markdown-post.component';
 import { ThemeService } from './core/services/theme-service/theme.service';
 import { PostsService } from './core/services/post-service/posts.service';
 import { FilterService } from './core/services/filter-service/filter.service';
+import { StorageService } from './core/services/storage-service/storage.service';
 
 import { environment } from '../environments/environment';
 
+import { FILTER_POSTS, filterPosts } from './core/store/filter.reducer';
+import { DARK_THEME, darkTheme} from './core/store/dark-theme.reducer';
+import { SIDE_NAV, sideNav } from './core/store/sidenav.reducer';
+
 import 'prismjs/components/prism-javascript';
-import { StorageService } from './core/storage-service/storage.service';
+
+
 
 @NgModule({
   declarations: [
@@ -44,6 +54,13 @@ import { StorageService } from './core/storage-service/storage.service';
   ],
   imports: [
     NgxMdModule.forRoot(),
+    StoreModule.forRoot({}),
+    StoreModule
+      .forFeature('darkTheme', DARK_THEME),
+    StoreModule
+      .forFeature('sideNav', SIDE_NAV),
+    StoreModule
+      .forFeature('filterPosts', FILTER_POSTS),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -80,7 +97,14 @@ import { StorageService } from './core/storage-service/storage.service';
   providers: [
     ThemeService,
     PostsService,
-    StorageService
+    StorageService,
+    FilterService,
+    LayoutModule,
+    MediaMatcher,
+    Platform,
+    darkTheme,
+    sideNav,
+    filterPosts
   ],
   bootstrap: [AppComponent]
 })
