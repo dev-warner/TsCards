@@ -17,8 +17,8 @@
           "/*.css",
           "/*.js",
           "/assets/**",
+          "/*.md",
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
-          "/*.md"
         ]
       }
     },

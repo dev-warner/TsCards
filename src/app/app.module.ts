@@ -76,7 +76,7 @@ import { IsStringService } from './core/is-string.service';
     MatExpansionModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production ? true : false }),
+    ServiceWorkerModule.register('./worker/ngsw-worker.js', { enabled: environment.production ? true : false }),
   ],
   exports: [
     MatSidenavModule,

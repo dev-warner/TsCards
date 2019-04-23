@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
         if (!this.isHome()) {
           const post = (this.postService.getNextPost());
 
-          if (this.utils.isString(post)) {
+          if (!post.category) {
             return '/contribute';
           }
 
